@@ -97,7 +97,78 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _styles_app_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./styles/app.css */ "./frontend/styles/app.css");
 /* harmony import */ var _styles_app_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_styles_app_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _services_BookService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./services/BookService */ "./frontend/services/BookService.js");
 // Webpack es una librería de Js y por ello se trabaja a través de ficheros js.
+
+
+
+
+document.getElementById('book-form')
+    .addEventListener('submit', e => {
+        e.preventDefault();
+        const title = document.getElementById('title').value;
+        const author = document.getElementById('author').value;
+        const isbn = document.getElementById('isbn').value;
+        const image = document.getElementById('image').files;
+
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('author', author);
+        formData.append('isbn', isbn);
+        formData.append('image', image[0]);
+
+        const bookService = new _services_BookService__WEBPACK_IMPORTED_MODULE_1__["default"]();
+        bookService.createBook(formData);
+
+        console.log(title, author, isbn, image);
+    });
+
+/***/ }),
+
+/***/ "./frontend/services/BookService.js":
+/*!******************************************!*\
+  !*** ./frontend/services/BookService.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return BookService; });
+class BookService {
+    constructor() {
+        this.URI = 'http://localhost:3000/api/books';
+    }
+
+    async getBooks() {
+        const response = await fetch(this.URI);
+        const books = await response.json();
+        console.log(books);
+        return books;
+    }
+
+    async createBook(book) {
+        const response = await fetch(this.URI, {
+            method: 'POST',
+            body: book
+        });
+        const newBook = await response.json();
+        console.log(newBook);
+        return newBook;
+    }
+
+    async deleteBook(bookId) {
+        const response = await fetch(`${this.URI}/${bookId}`, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'DELETE',
+        });
+        const deletedBook = await response.json();
+        console.log(deletedBook);
+        return deletedBook;
+    }
+}
 
 
 /***/ }),

@@ -3,3 +3,6 @@ node_modules
 
 # Env variables
 .env
+
+#Uploaded files
+/backend/public/uploads
