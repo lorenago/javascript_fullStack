@@ -1,3 +1,8 @@
+/**
+ * Class BookService
+ * Contiene las lógicas necesarias para la integración
+ * con el CRUD de libros del backend.
+ */
 export default class BookService {
     constructor() {
         this.URI = 'http://localhost:3000/api/books';
@@ -6,7 +11,6 @@ export default class BookService {
     async getBooks() {
         const response = await fetch(this.URI);
         const books = await response.json();
-        console.log(books);
         return books;
     }
 
@@ -16,7 +20,6 @@ export default class BookService {
             body: book
         });
         const newBook = await response.json();
-        console.log(newBook);
         return newBook;
     }
 

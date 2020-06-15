@@ -1,7 +1,13 @@
 // Webpack es una librería de Js y por ello se trabaja a través de ficheros js.
 import './styles/app.css';
 
-import BookService from './services/BookService';
+import UI from './UI';
+
+const ui = new UI();
+
+document.addEventListener('DOMContentLoaded', () => {
+    ui.renderBooks();
+});
 
 document.getElementById('book-form')
     .addEventListener('submit', e => {
@@ -17,8 +23,7 @@ document.getElementById('book-form')
         formData.append('isbn', isbn);
         formData.append('image', image[0]);
 
-        const bookService = new BookService();
-        bookService.createBook(formData);
+        ui.addNewBook(formData);
 
         console.log(title, author, isbn, image);
     });
