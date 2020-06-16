@@ -40,7 +40,7 @@ export default class UI {
     }
 
     async addNewBook(book) {
-        await bookService.addNewBook(book);
+        await bookService.createBook(book);
         this.clearBookForm();
         this.renderBooks();
     }
@@ -49,8 +49,24 @@ export default class UI {
         document.getElementById('book-form').reset();
     }
 
-    renderMessage() {}
+    renderMessage(message, colorMessage, secondsToRemove) {
+        const div = document.createElement('div');
+        div.className = `alert alert-${colorMessage} message`;
+        div.appendChild(document.createTextNode(message));
 
-    deleteBook() {}
+        const container = document.querySelector('.main-content');
+        const bookForm = document.querySelector('#book-form');
+
+        container.insertBefore(div, bookForm);
+
+        setTimeout(() => {
+            document.querySelector('.message').remove();
+        }, secondsToRemove * 1000);
+    }
+
+    async deleteBook(bookId) {
+        await bookService.deleteBook(bookId);
+        this.renderBooks();
+    }
 
 }
