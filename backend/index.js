@@ -31,6 +31,7 @@ app.use(cors());
 
 // Routes
 app.use('/api/books', require('./routes/books'));
+app.use('/api/emails', require('./routes/emails'));
 
 // Static files
 app.use(express.static(path.join(__dirname, 'public')));

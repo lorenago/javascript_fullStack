@@ -38,3 +38,21 @@ document.getElementById('books-cards')
             ui.renderMessage('Libro eliminado', 'danger', 2);
         }
     });
+
+document.getElementById('email-form')
+    .addEventListener('submit', e => {
+        e.preventDefault();
+        const remitente = document.getElementById('remitente').value;
+        const asunto = document.getElementById('asunto').value;
+        const mensaje = document.getElementById('mensaje').value;
+
+        const formData = new FormData();
+        formData.append('remitente', remitente);
+        formData.append('asunto', asunto);
+        formData.append('mensaje', mensaje);
+
+        ui.sendEmail(formData);
+        ui.renderMessage('Email guardado', 'success', 3);
+
+        console.log(remitente, asunto, mensaje);
+    });

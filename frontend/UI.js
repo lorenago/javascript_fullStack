@@ -1,7 +1,9 @@
 import BookService from './services/BookService';
+import MailService from './services/MailService';
 import { format } from 'timeago.js';
 
 const bookService = new BookService();
+const mailService = new MailService();
 
 /**
  * Class UI
@@ -67,6 +69,15 @@ export default class UI {
     async deleteBook(bookId) {
         await bookService.deleteBook(bookId);
         this.renderBooks();
+    }
+
+    async sendEmail(email) {
+        await mailService.sendEmail(email);
+        this.clearEmailForm();
+    }
+
+    clearEmailForm() {
+        document.getElementById('email-form').reset();
     }
 
 }
